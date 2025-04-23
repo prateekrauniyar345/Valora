@@ -1,0 +1,119 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+
+
+
+
+/* my css for app.css */
+/* ====== src/App.css ====== */
+
+/* 1) Reset + box‑sizing */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+  
+}
+
+/* 2) Full‑bleed html/body */
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background: white;
+  color: black;
+}
+
+/* 3) Sticky header spans 100% */
+header.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;         /* full viewport width */
+  height: 100px;
+  z-index: 1000;
+  background: #fff;
+  /* your existing header styles… */
+}
+
+/* 4) Content wrapper under header, full‑width */
+.content {
+  width: 100vw;                     /* full viewport width */
+  /* padding-top: 100px;              */
+  display: block;                   /* or flex/column if you need */
+}
+
+/* 5) Ensure page sections are full‑width */
+.leaderboard,
+.product-listing-container,
+.listing-main,
+.product-grid,
+footer {
+  width: 100vw;                     /* override any max‑widths */
+  margin: 0;                        /* remove auto‑centering */
+  padding: var(--gap, 1.5rem);      /* optional gutters */
+  color: black;
+}
+
+/* 6) Reset any leftover max-widths in components */
+* {
+  max-width: none !important;
+}
+
+/* 7) Image responsiveness */
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 8) Utility */
+/* .error {
+  color: #c00;
+  text-align: center;
+} */

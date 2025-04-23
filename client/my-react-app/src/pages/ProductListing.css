@@ -1,0 +1,184 @@
+/* src/pages/ProductListing.css */
+
+/* 1. Wrapper */
+.product-listing-container {
+  display: flex;
+  width: 100%;
+  gap: 24px;         /* space between sidebar and main */
+  padding: 24px;     /* outer gutter */
+  box-sizing: border-box;
+  justify-content: flex-start;
+
+}
+
+@media (max-width: 768px) {
+  .product-listing-container {
+    flex-direction: column;
+  }
+}
+
+/* 2. Sidebar */
+.sidebar {
+  flex: 0 0 260px;           /* fixed width */
+  max-width: 260px;
+  padding: 36px;             /* inner padding */
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  height: fit-content;
+  
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 24px;
+    border-right: none;
+    border-bottom: 1px solid #dddddd;
+  }
+}
+
+.filter-group {
+  margin-bottom: 48px;       /* space between filter sections */
+  padding-bottom: 24px;      /* inner separator */
+  border-bottom: 1px solid #eeeeee;
+}
+
+.filter-group h4 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #333333;
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.filter-group input[type="range"] {
+  width: 100%;
+  margin-top: 8px;
+}
+/* Hide the browser default checkbox and draw our own */
+input[type="checkbox"] {
+  /* remove default look */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* size & border */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 4px;
+
+  /* position relative so we can absolutely position the tick */
+  position: relative;
+
+  /* spacing & cursor */
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* Draw the checkmark when checked */
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  position: absolute;
+  top: 0;
+  left: 2px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+
+/* Optional: focus outline */
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+}
+
+
+/* 3. Main listing area */
+.listing-main {
+  flex: 1;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow-x: auto;          /* horizontal scrollbar if needed */
+}
+
+@media (max-width: 768px) {
+  .listing-main {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+/* 4. Product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.product-grid > * {
+  width: 100%;               /* ensure cards fill their cell */
+}
+
+/* 5. Error state */
+.error {
+  color: #cc0000;
+  text-align: center;
+  padding: 24px;
+}
+
+/* ============ */
+
+
+
+/* Price inputs layout */
+.price-filter h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-field label {
+  font-size: 0.875rem;
+  margin-bottom: 4px;
+}
+
+.price-field input {
+  width: 80px;
+  padding: 4px 8px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* separator “–” between min and max */
+.price-sep {
+  font-size: 1.2rem;
+  color: #666;
+  user-select: none;
+}

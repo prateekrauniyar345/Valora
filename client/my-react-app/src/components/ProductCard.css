@@ -1,0 +1,76 @@
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s ease;
+    width: fit-content;
+    height: 100%; 
+    /* max-height: 300px; */
+    /* border: 1px solid red; */
+  }
+  
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .card-image {
+    position: relative;
+    padding-top: 75%; /* 4:3 aspect */
+  }
+  
+  .card-image img {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 0.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+  
+  .card-detail {
+    margin: 0.25rem 0;
+    font-size: 0.875rem;
+    color: #555;
+  }
+  
+  .card-price {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .card-rating {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    /* ensure all items stretch to fill the track */
+    align-items: stretch;
+  }
+  
+  /* if the link is the direct child of the grid: */
+  .product-grid > a.product-card {
+    /* stretch that link wrapper to full cell height */
+    align-self: stretch;
+  }
+  

@@ -1,0 +1,51 @@
+.men-page {
+   padding: 2rem;
+   font-family: 'Montserrat', sans-serif;
+   background-color: #f9f9f9;
+   min-height: 80vh;
+ }
+ 
+ .men-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 2rem;
+   flex-wrap: wrap;
+ }
+ 
+ .men-header h1 {
+   font-size: 2rem;
+   color: #222;
+ }
+ 
+ .subcategory-input {
+   padding: 0.5rem 1rem;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   font-size: 0.9rem;
+   background-color: white;
+   color: #333;
+   min-width: 200px;
+ }
+ 
+ .product-display p {
+   margin-bottom: 1rem;
+   font-weight: 500;
+ }
+ 
+ .product-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+   gap: 1.5rem;
+ }
+ 
+ .product-card {
+   background-color: white;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   padding: 1rem;
+   text-align: center;
+   font-size: 0.9rem;
+   box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+ }
+ 

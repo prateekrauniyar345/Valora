@@ -1,0 +1,74 @@
+.auth-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 10rem auto 6rem;
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .auth-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #111;
+    font-weight: 700;
+  }
+  
+  .auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .auth-container input {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .auth-container input:focus {
+    border-color: #000;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .auth-container button {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-container button:hover {
+    background-color: #333;
+  }
+  
+  .auth-register-link {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .auth-register-link a {
+    color: black;
+    font-weight: 600;
+    text-decoration: underline;
+    margin-left: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  .auth-register-link a:hover {
+    color: #ff9900;
+  }

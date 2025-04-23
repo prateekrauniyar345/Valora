@@ -1,0 +1,139 @@
+.product-detail-container {
+    padding: 2rem;
+  }
+  
+  .pd-breadcrumbs {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pd-breadcrumbs a {
+    color: #555;
+    text-decoration: none;
+  }
+  .pd-breadcrumbs span {
+    color: #333;
+  }
+  
+  .pd-main {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  /* Gallery */
+  .pd-gallery {
+    flex: 1;
+    text-align: center;
+  }
+  .pd-main-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Info panel */
+  .pd-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .pd-title {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  .pd-price {
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  /* Sections */
+  .pd-section h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Color swatches */
+  .pd-colors {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .pd-swatch {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+  }
+  .pd-swatch.selected {
+    border-color: #000;
+  }
+  
+  /* Size buttons */
+  .pd-sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .pd-size-btn {
+    width: 40px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .pd-size-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .pd-size-btn.selected {
+    border-color: #000;
+  }
+  
+  /* Add to bag */
+  .pd-add-btn {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .pd-add-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+
+  /* Rating stars */
+.pd-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+  
+  .pd-rating .star {
+    color: #ccc;            /* empty star color */
+  }
+  
+  .pd-rating .star.filled {
+    color: #ff9900;         /* filled star color */
+  }
+  
+  .pd-rating-value {
+    font-size: 0.875rem;
+    color: #666;
+    margin-left: 0.5rem;
+  }
+  
+  /* Material info */
+  .pd-material {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 460px;
+  padding-bottom: 110px;
+  background-color: #fff;
+}
+
+.login-container {
+  width: 500px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: 'Cinzel', serif;
+}
+
+.login-title {
+  margin-top: 50px;
+  font-size: 2rem;
+  margin-bottom: 1px;
+  color: #000;
+  letter-spacing: 2px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #000;
+  border-radius: 25px;
+  outline: none;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  box-sizing: border-box;
+}
+
+.login-input::placeholder {
+  color: #000;
+  letter-spacing: 1px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 25px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+}
+
+.login-button:hover {
+  background-color: orange;
+  color: #000;
+}
+
+.login-footer {
+  margin-top: 45px;
+  font-size: 0.9rem;
+  font-family: 'Cinzel', serif;
+}
+
+.login-footer a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}

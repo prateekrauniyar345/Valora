@@ -1,0 +1,50 @@
+.contact-container {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 4rem 2rem;
+   background-color: white;
+   min-height: 80vh;
+   font-family: 'Montserrat', sans-serif;
+   color: #333;
+   
+ }
+ 
+ .contact-content {
+   /* max-width: 800px; */
+   background: white;
+   padding: 2.5rem;
+   border-radius: 10px;
+   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+ }
+ 
+ .contact-content h1 {
+   font-size: 2rem;
+   margin-bottom: 1rem;
+   color: #222;
+ }
+ 
+ .contact-info p {
+   font-size: 0.95rem;
+   margin: 0.5rem 0;
+ }
+ 
+ .thank-you {
+   margin-top: 2rem;
+   font-weight: 500;
+   color: #444;
+ }
+ 
+ .back-home {
+   display: inline-block;
+   margin-top: 1.5rem;
+   text-decoration: none;
+   color: #ff9900;
+   font-weight: 600;
+   transition: color 0.3s ease;
+ }
+ 
+ .back-home:hover {
+   color: #e67e00;
+ }
+ 
