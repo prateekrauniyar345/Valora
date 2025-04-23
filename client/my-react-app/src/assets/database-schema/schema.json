@@ -1,0 +1,98 @@
+{
+    "users": {
+      "_id": "ObjectId",
+      "name": "String",
+      "email": "String",
+      "username": "String",
+      "passwordHash": "String",
+      "createdAt": "Date",
+      "updatedAt": "Date"
+    },
+    "user_profiles": {
+      "_id": "ObjectId",
+      "userId": "ObjectId (ref: users)",
+      "fullName": "String",
+      "phone": "String",
+      "dob": "Date",
+      "shippingAddresses": [
+        {
+          "label": "Home | Office | Other",
+          "line1": "String",
+          "city": "String",
+          "state": "String",
+          "zip": "String",
+          "country": "String"
+        }
+      ],
+      "billingAddress": {
+        "line1": "String",
+        "city": "String",
+        "state": "String",
+        "zip": "String",
+        "country": "String"
+      },
+      "paymentMethods": [
+        {
+          "method": "String (e.g. Visa, MasterCard, PayPal)",
+          "cardType": "String (e.g. Debit, Credit)",
+          "cardNumberMasked": "String (e.g. **** **** **** 1234)",
+          "expiryMonth": "Number",
+          "expiryYear": "Number",
+          "cvvHash": "String"
+        }
+      ]
+    },
+    "carts": {
+      "_id": "ObjectId",
+      "userId": "ObjectId (ref: users)",
+      "items": [
+        {
+          "productId": "ObjectId (ref: products)",
+          "qty": "Number",
+          "size": "String",
+          "color": "String"
+        }
+      ],
+      "updatedAt": "Date"
+    },
+    "orders": {
+      "_id": "ObjectId",
+      "userId": "ObjectId (ref: users)",
+      "items": [
+        {
+          "productId": "ObjectId (ref: products)",
+          "qty": "Number",
+          "size": "String",
+          "color": "String",
+          "priceAtPurchase": "Number"
+        }
+      ],
+      "status": "String (e.g. Pending, Shipped, Delivered)",
+      "shippingAddress": {
+        "line1": "String",
+        "city": "String",
+        "state": "String",
+        "zip": "String",
+        "country": "String"
+      },
+      "createdAt": "Date"
+    },
+    "order_payments": {
+      "_id": "ObjectId",
+      "orderId": "ObjectId (ref: orders)",
+      "userId": "ObjectId (ref: users)",
+      "amount": "Number",
+      "method": "String (e.g. Credit Card, PayPal)",
+      "status": "String (e.g. Paid, Failed, Pending)",
+      "transactionId": "String",
+      "processedAt": "Date"
+    },
+    "discounts": {
+      "_id": "ObjectId",
+      "productId": "ObjectId (ref: products)",
+      "discountType": "String (e.g. percentage, flat)",
+      "discountValue": "Number",
+      "description": "String",
+      "expiresAt": "Date"
+    }
+  }

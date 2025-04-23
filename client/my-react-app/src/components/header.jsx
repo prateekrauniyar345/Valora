@@ -4,10 +4,14 @@ import logo from '../assets/logo/logo.png';
 import { Link, useNavigate, useSearchParams  } from 'react-router-dom';
 import slugify from 'slugify'; // For URL slugs
 import pluralize from 'pluralize';
+import { useCart } from './CartContext';
 
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
+  // keeping track of items adde dto cart
+  // const [cartCount, setCartCount] = useState(0);
+
   // const [searchTerm, setSearchTerm] = useState('');
   const [searchParams]              = useSearchParams();  
   // init from ?query= on first render
@@ -15,11 +19,32 @@ const Header = () => {
     () => searchParams.get('query') || ''
   );
 
+
+  const { cartCount } = useCart();
+
   // keep it in sync if someone lands or navigates with a ?query=
   useEffect(() => {
     setSearchTerm(searchParams.get('query') || '');
   }, [searchParams]);
 
+
+
+  // get cart count from server
+  // useEffect(() => {
+  //   fetch('http://localhost:5001/api/cart', {
+  //     credentials: 'include' // so cookie is sent
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       const total = data.items.reduce((sum, item) => sum + item.qty, 0);
+  //       setCartCount(total);
+  //     })
+  //     .catch(err => {
+  //       console.error('Failed to fetch cart:', err);
+  //       setCartCount(0);
+  //     });
+  // }, []);
+  
 
 
   const navigate  = useNavigate();
@@ -179,6 +204,13 @@ const Header = () => {
             <button className="register-btn">Register</button>
           </Link>
       </div>
+
+      {/* cart icons */}
+        <Link to="/cart" className="cart-btn">
+          <span className="cart-icon">🛒</span> 
+          {/* {cartCount > 0 && <span className="cart-count">{cartCount}</span>} */}
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+        </Link>
 
 
     </header>

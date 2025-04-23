@@ -266,3 +266,23 @@
   color: black;
   border: 0.5px solid black;
 }
+
+
+/* cart count style */
+.cart-btn {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
