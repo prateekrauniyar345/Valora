@@ -4,16 +4,44 @@
 
 // server/routes/cart.js
 const express = require('express');
-const Cart    = require('../models/Cart');
-const router  = express.Router();
+const Cart = require('../models/Cart');
+const Product = require('../models/Product');
+const Discount = require('../models/Discount');
 
+const router = express.Router();
 
-// GET current cart
+// ✅ GET current cart with fallback to Discount collection
 router.get('/', async (req, res) => {
-  const cart = await Cart.findById(req.cartId).populate('items.productId');
-  if (!cart) return res.status(404).send({ error: 'Cart not found' });
-  res.send(cart);
+  try {
+    const cart = await Cart.findById(req.cartId).lean();
+
+    if (!cart) return res.status(404).send({ error: 'Cart not found' });
+
+    // Enrich each item with product details from either collection
+    const enrichedItems = await Promise.all(
+      cart.items.map(async item => {
+        let product = await Product.findById(item.productId).lean();
+        if (!product) {
+          product = await Discount.findById(item.productId).lean();
+        }
+
+        return {
+          ...item,
+          productId: product || null  // null if not found anywhere
+        };
+      })
+    );
+
+    res.send({
+      ...cart,
+      items: enrichedItems
+    });
+  } catch (err) {
+    console.error('Error loading cart:', err);
+    res.status(500).send({ error: 'Failed to load cart' });
+  }
 });
+
 
 // POST add/update an item
 router.post('/items', async (req, res) => {

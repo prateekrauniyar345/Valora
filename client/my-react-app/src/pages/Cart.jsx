@@ -1,8 +1,10 @@
 // src/pages/Cart.jsx
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Cart.css';
 import { useCart } from '../components/CartContext';
+;
+
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -68,6 +70,16 @@ export default function Cart() {
   if (loading) return <p>Loading cart…</p>;
   if (error) return <p className="error">{error}</p>;
 
+   // Discount code logic 
+  function getDiscountedPrice(price, discountCode) {
+    let percent = 20; // default
+    if (discountCode.includes('30%')) percent = 30;
+    else if (discountCode.includes('50%')) percent = 50;
+    else if (discountCode.includes('70%')) percent = 70;
+    return (price * (1 - percent / 100)).toFixed(2);
+  }
+  
+
   return (
     <div className="cart-container">
       <h1>Your Shopping Bag</h1>
@@ -79,6 +91,7 @@ export default function Cart() {
             {cartItems.map((item, index) =>
                 item.productId ? (
                 <li key={index} className="cart-item">
+                    <Link to={`/product/${item.productId._id}`} className="cart-product-link">
                     <img
                         src={
                             typeof item.productId.link === 'string'
@@ -88,18 +101,38 @@ export default function Cart() {
                         alt={item.productId.productDisplayName || 'Product image'}
                         className="cart-image"
                     />
+                    </Link>
 
                     <div className="cart-info">
                     <h3>{item.productId.productDisplayName}</h3>
                     <p>Color: {item.color} | Size: {item.size}</p>
                     <p>Qty: {item.qty}</p>
                     <p>
-                        Price: $
-                        {item.productId?.price
-                        ? item.productId.price.toFixed(2)
-                        : 'N/A'}
+                        Price: 
+                        {item.productId?.discountCode ? (
+                            <>
+                            <span style={{ textDecoration: 'line-through', color: 'red', marginLeft: '5px' }}>
+                                ${item.productId.price.toFixed(2)}
+                            </span>
+                            <span style={{ fontWeight: 'bold', marginLeft: '10px' }}>
+                                ${getDiscountedPrice(item.productId.price, item.productId.discountCode)}
+                            </span>
+                            </>
+                        ) : (
+                            <span style={{ marginLeft: '5px' }}>
+                            ${item.productId?.price?.toFixed(2)}
+                            </span>
+                        )}
                     </p>
+
+                    {/* Display discount code if available */}
+                    {item.productId?.discountCode && (
+                    <p style={{ color: 'green', fontWeight: 'bold' }}>
+                        {item.productId.discountCode.toUpperCase()} 
+                    </p>
+                    )}
                     </div>
+                    {/* </Link> */}
                     <button
                     className="remove-btn"
                     onClick={() =>
@@ -108,6 +141,7 @@ export default function Cart() {
                     >
                     ❌ Remove
                     </button>
+                    
                 </li>
                 ) : null // ⬅️ if productId is missing, render nothing
             )}
