@@ -1,3 +1,4 @@
+
 // src/pages/Checkout.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -43,6 +44,7 @@ export default function Checkout() {
     0
   );
 
+
   return (
     <div className="checkout-container">
       <h1>Checkout</h1>
@@ -51,7 +53,9 @@ export default function Checkout() {
         {items.map((item, index) => (
           <div key={index} className="checkout-item">
             <div>
+
               <strong>{item.productId?.productDisplayName || item.productId?.name || item.name || 'Unnamed Product'}</strong>
+
               <p>Size: {item.size} | Color: {item.color} | Qty: {item.qty}</p>
             </div>
             <span>
@@ -65,7 +69,9 @@ export default function Checkout() {
         </div>
 
         <button className="place-order-btn" onClick={handlePlaceOrder}>
+
           Proceed to Payment
+
         </button>
       </div>
     </div>

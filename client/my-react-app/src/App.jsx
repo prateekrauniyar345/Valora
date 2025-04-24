@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Header from './components/header';
 import Footer from './components/footer';
 
+
 // imports from pages folder
 import LandingPage from './pages/LandingPage';
 import About from './pages/about';
@@ -16,9 +17,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductListing from './pages/ProductListing'; 
 import ProductDetails  from './pages/ProductDetails';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 
 import './App.css';
+import { CartProvider } from './components/CartContext';
 
 function PageLogger() {
   const location = useLocation();
@@ -38,7 +42,7 @@ function PageLogger() {
 
 function App() {
   return (
-    
+    <CartProvider>
     <Router>
     <PageLogger />
       <Header />
@@ -60,15 +64,16 @@ function App() {
         <Route path="/products/:gender/:category" element={<ProductListing />} />
         <Route path="/search" element={<ProductListing />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+
       </Routes>
+    
       </div>
-
-   
-
-
 
       <Footer />
     </Router>
+    </CartProvider>
   );
 }
 

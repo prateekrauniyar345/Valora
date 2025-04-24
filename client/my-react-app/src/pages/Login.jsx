@@ -15,7 +15,7 @@ const handleLogin = (e) => {
 
   if (user) {
     localStorage.setItem('userFirstName', user.firstName);
-    window.location.href = '/'; // This forces reload and triggers login detection
+    navigate('/'); // This forces reload and triggers login detection
     
   } else {
     alert('Account not found. Please register first.');

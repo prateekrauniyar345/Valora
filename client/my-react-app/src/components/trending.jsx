@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import "./trending.css";
+
+
 import img1 from '../assets/trending/img1.jpg';
 import img2 from '../assets/trending/img2.jpg';
 import img3 from '../assets/trending/img3.jpg';
@@ -24,31 +28,35 @@ import img20 from '../assets/trending/img20.jpg';
 
 // Sample product images (replace with actual product images)
 const products = [
-  { id: 1, image: img1, title: "Product 1" },
-  { id: 2, image: img2, title: "Product 2" },
-  { id: 3, image: img3, title: "Product 3" },
-  { id: 4, image: img4, title: "Product 4" },
-  { id: 5, image: img5, title: "Product 5" },
-  { id: 6, image: img6, title: "Product 6" },
-  { id: 7, image: img7, title: "Product 7" },
-  { id: 8, image: img8, title: "Product 8" },
-  { id: 9, image: img9, title: "Product 9" },
-  { id: 10, image: img10, title: "Product 10" },
-  { id: 11, image: img11, title: "Product 11" },
-  { id: 12, image: img12, title: "Product 12" },
-  { id: 13, image: img13, title: "Product 13" },
-  { id: 14, image: img14, title: "Product 14" },
-  { id: 15, image: img15, title: "Product 15" },
-  { id: 16, image: img16, title: "Product 16" },
-  { id: 17, image: img17, title: "Product 17" },
-  { id: 18, image: img18, title: "Product 18" },
-  { id: 19, image: img19, title: "Product 19" },
-  { id: 20, image: img20, title: "Product 20" },
+  { id: "67ee59ab07cbd7afeb566b0e", image: img1, title: "Product 1" },
+  { id: "67ee59a407cbd7afeb55faf5", image: img2, title: "Product 2" },
+  { id: "67ee59a707cbd7afeb561de1", image: img3, title: "Product 3" },
+  { id: "67ee59a507cbd7afeb560137", image: img4, title: "Product 4" },
+  { id: "67ee59a507cbd7afeb56007b", image: img5, title: "Product 5" },
+  { id: "67ee59a407cbd7afeb55fbe4", image: img6, title: "Product 6" },
+  { id: "67ee59a407cbd7afeb55f8d9", image: img7, title: "Product 7" },
+  { id: "67ee59a807cbd7afeb563c21", image: img8, title: "Product 8" },
+  { id: "67ee59a407cbd7afeb55f8c5", image: img9, title: "Product 9" },
+  { id: "67ee59ad07cbd7afeb56859f", image: img10, title: "Product 10" },
+  { id: "67ee59a407cbd7afeb55f916", image: img11, title: "Product 11" },
+  { id: "67ee59a507cbd7afeb55fd0a", image: img12, title: "Product 12" },
+  { id: "67ee59a407cbd7afeb55fabe", image: img13, title: "Product 13" },
+  { id: "67ee59a407cbd7afeb55f962", image: img14, title: "Product 14" },
+  { id: "67ee59ab07cbd7afeb566229", image: img15, title: "Product 15" },
+  { id: "67ee59a907cbd7afeb564278", image: img16, title: "Product 16" },
+  { id: "67ee59a507cbd7afeb55fc69", image: img17, title: "Product 17" },
+  { id: "67ee59a507cbd7afeb56092d", image: img18, title: "Product 18" },
+  { id: "67ee59aa07cbd7afeb565535", image: img19, title: "Product 19" },
+  { id: "67ee59a407cbd7afeb55f84e", image: img20, title: "Product 20" },
 ];
+
+
+
+
 
 const TrendingSection = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const visibleItems = 5; // Number of products visible at a time
+  const visibleItems = 5;
 
   const handleArrowClick = (direction) => {
     if (direction === "left" && startIndex > 0) {
@@ -76,8 +84,10 @@ const TrendingSection = () => {
         <div className="products-container">
           {products.slice(startIndex, startIndex + visibleItems).map((product) => (
             <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.title} />
-              <p>{product.title}</p>
+              <Link to={`/product/${product.id}`}>
+                <img src={product.image} alt={product.title} />
+              </Link>
+              {/* <p>{product.title}</p> */}
             </div>
           ))}
         </div>
