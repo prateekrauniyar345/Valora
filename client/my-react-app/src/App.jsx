@@ -16,7 +16,22 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductListing from './pages/ProductListing'; 
 import ProductDetails  from './pages/ProductDetails';
+<<<<<<< Updated upstream
 
+=======
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import Collections from './pages/Collections';
+import Shop from './pages/Shop';
+import Sale from './pages/Sale';
+import Shipping from './pages/Shipping';
+import Returns from './pages/Return';
+import FAQs from './pages/FAQs';
+import SizeGuide from './pages/SizeGuide';
+import Profile from './pages/profile';
+>>>>>>> Stashed changes
 
 import './App.css';
 
@@ -60,6 +75,25 @@ function App() {
         <Route path="/products/:gender/:category" element={<ProductListing />} />
         <Route path="/search" element={<ProductListing />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+<<<<<<< Updated upstream
+=======
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/sale" element={<Sale />} />
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/returns" element={<Returns />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/size-guide" element={<SizeGuide />} />
+        <Route path="/profile" element={<Profile />} />
+
+
+
+>>>>>>> Stashed changes
       </Routes>
       </div>
 

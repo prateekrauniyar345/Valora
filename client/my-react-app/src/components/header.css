@@ -1,6 +1,4 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+/* Header.css - Main Header Styling */
 
 .header {
   display: flex;
@@ -14,35 +12,27 @@
   z-index: 1000;
   color: black; 
   font-family: 'Montserrat';
-  /* height: 100px; */
-  /* border: 1px solid red; */
-  
 }
-
 
 .header__logo img {
   height: 50px;
   width: auto;
   cursor: pointer;
-  /* border: 1px solid red; */
   display: flex;
   text-align: center;
   justify-content: center;
 }
 
- 
 .header__nav ul {
   display: flex;
   list-style: none;
   gap: 2rem;
-  /* border: 1px solid red; */
 }
 
 .header__nav ul li {
   position: relative;
   cursor: pointer;
 }
-
 
 .header__nav ul li a {
   color: black;
@@ -58,38 +48,37 @@
   cursor: pointer;
 }
 
-
-
 .dropdown-menu {
   position: absolute;
-  top: 40px; 
-  left: 0;
+  top: 25px;
+  left: -40px;
+  width: 50vw;
   background: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  min-width: 200px;
-  z-index: 999; 
-  border-radius: 5px;
+  border-radius: 8px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  font-size: 8px !important;
 }
 
-
-.dropdown-trigger:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
+.dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+  width: 100%;
 }
-
 
 .dropdown-menu a {
-  padding: 10px;
+  padding: 0.3rem 0.5rem;
   text-decoration: none;
   color: black;
   display: block;
-  font-size: 14px;
+  font-size: 12px !important;
+  border-radius: 4px;
   transition: background 0.3s ease-in-out;
 }
 
@@ -97,6 +86,12 @@
   background: #f0f0f0;
 }
 
+.dropdown-menu .shop-all {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #ff9900;
+  font-size: 9px !important;
+}
 
 .header__search {
   display: flex;
@@ -135,15 +130,10 @@
   border: 0.3px solid black;
 }
 
-.header__search button:focus {
-  outline: none;
-}
-
-
 .header__user {
   display: flex;
   align-items: center;
-  gap : 35px;
+  gap: 35px;
 }
 
 .header__user a {
@@ -167,92 +157,10 @@
   margin-right: 0.5rem;
 }
 
-
-/* Enhanced Dropdown Menu */
-.dropdown-menu {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 70vw;
-  background: white;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-/* Grid for links */
-.dropdown-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  width: 100%;
-}
-
-/* Show Dropdown on Hover */
-.dropdown-trigger:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-}
-/* Dropdown Container */
-.dropdown-menu {
-  position: absolute;
-  top: 25px;
-  left: -40px;
-  width: 50vw;
-  background: white;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  font-size: 8px !important; /* 👈 Ensures everything inside starts at 8px */
-}
-
-/* Grid for links */
-.dropdown-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 0.5rem;
-  width: 100%;
-}
-
-/* Dropdown Links */
-.dropdown-menu a {
-  padding: 0.3rem 0.5rem;
-  text-decoration: none;
-  color: black;
-  display: block;
-  font-size: 12px !important; /* 👈 Force font size for links */
-  border-radius: 4px;
-  transition: background 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.dropdown-menu a:hover {
-  background: #f0f0f0;
-}
-
-/* Highlight for Shop All */
-.dropdown-menu .shop-all {
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #ff9900;
-  font-size: 9px !important; 
-}
-
 .login-register {
   display: flex;           
   align-items: center;    
   gap: 1rem;               
-  /* border: 1px solid red;  */
 }
 
 .login-btn, .register-btn{
@@ -266,3 +174,31 @@
   color: black;
   border: 0.5px solid black;
 }
+<<<<<<< Updated upstream
+=======
+
+.login-register span {
+  margin-right: 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+}
+
+.cart-btn {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+>>>>>>> Stashed changes
