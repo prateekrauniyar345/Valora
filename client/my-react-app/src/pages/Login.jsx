@@ -7,23 +7,30 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
- // Login.jsx
-const handleLogin = (e) => {
-  e.preventDefault();
-  const accounts = JSON.parse(localStorage.getItem('accounts') || '[]');
-  const user = accounts.find(acc => acc.email === email && acc.password === password);
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  if (user) {
-    localStorage.setItem('userFirstName', user.firstName);
-    window.location.href = '/'; // This forces reload and triggers login detection
-    
-  } else {
-    alert('Account not found. Please register first.');
-    navigate('/register');
-  }
-};
+    try {
+      const res = await fetch('http://localhost:5001/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-  
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem('userFirstName', data.user.firstName); // optional for UI
+        // You can also store user ID or token if needed
+        window.location.href = '/'; // reload to re-render header etc.
+      } else {
+        alert(data.message || 'Login failed. Please try again.');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
+      console.error('Login error:', error);
+    }
+  };
 
   return (
     <div className="login-page-wrapper">
