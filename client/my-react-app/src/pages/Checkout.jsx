@@ -1,4 +1,3 @@
-
 // src/pages/Checkout.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -15,11 +14,13 @@ export default function Checkout() {
 
   const handlePlaceOrder = async () => {
     try {
+      console.log("📦 Sending items to backend:", items); // Debug log
+
       const res = await fetch('http://localhost:5001/api/cart/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ items }), // ✅ Send items from frontend
+        body: JSON.stringify({ items }),
       });
 
       const data = await res.json();
@@ -31,7 +32,7 @@ export default function Checkout() {
 
       window.location.href = data.url;
     } catch (err) {
-      console.error('❌ Stripe Checkout Error:', err);
+      console.error('❌ Stripe Checkout Error:', err.message);
       alert('❌ Payment error. Please try again.');
     }
   };
@@ -39,39 +40,39 @@ export default function Checkout() {
   if (loading) return <p>Checking checkout status…</p>;
   if (!items || items.length === 0) return <p>Your checkout session is empty.</p>;
 
-  const total = items.reduce(
-    (sum, item) => sum + (item.productId?.price || item.price || 0) * item.qty,
-    0
-  );
-
+  const total = items.reduce((sum, item) => {
+    const price = item.productId?.price || item.price || 0;
+    const qty = item.qty || item.quantity || 1;
+    return sum + price * qty;
+  }, 0);
 
   return (
     <div className="checkout-container">
       <h1>Checkout</h1>
 
       <div className="checkout-summary">
-        {items.map((item, index) => (
-          <div key={index} className="checkout-item">
-            <div>
+        {items.map((item, index) => {
+          const name = item.productId?.productDisplayName || item.productId?.name || item.name || 'Unnamed Product';
+          const price = item.productId?.price || item.price || 0;
+          const qty = item.qty || item.quantity || 1;
 
-              <strong>{item.productId?.productDisplayName || item.productId?.name || item.name || 'Unnamed Product'}</strong>
-
-              <p>Size: {item.size} | Color: {item.color} | Qty: {item.qty}</p>
+          return (
+            <div key={index} className="checkout-item">
+              <div>
+                <strong>{name}</strong>
+                <p>Size: {item.size} | Color: {item.color} | Qty: {qty}</p>
+              </div>
+              <span>${(price * qty).toFixed(2)}</span>
             </div>
-            <span>
-              ${item.productId?.price ? (item.productId.price * item.qty).toFixed(2) : 'N/A'}
-            </span>
-          </div>
-        ))}
+          );
+        })}
 
         <div className="checkout-total">
           <strong>Total:</strong> ${total.toFixed(2)}
         </div>
 
         <button className="place-order-btn" onClick={handlePlaceOrder}>
-
           Proceed to Payment
-
         </button>
       </div>
     </div>

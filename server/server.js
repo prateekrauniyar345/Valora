@@ -1,3 +1,6 @@
+// server/server.js
+require('dotenv').config(); // MUST be first
+console.log('🔑 Stripe Key:', process.env.STRIPE_SECRET_KEY);
 require('dotenv').config();
 require('./db/main'); // Connect to MongoDB
 
@@ -57,6 +60,6 @@ app.use((err, req, res, next) => {
 
 // ─── Start Server ─────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
