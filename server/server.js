@@ -1,28 +1,29 @@
 // server/server.js
 require('dotenv').config(); // MUST be first
 console.log('🔑 Stripe Key:', process.env.STRIPE_SECRET_KEY);
+require('dotenv').config();
+require('./db/main'); // Connect to MongoDB
 
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const productsRoute = require('./routes/products');
-const cartRoutes = require('./routes/cart');
-const ordersRoute = require('./routes/orders');
-
-const Cart = require('./models/Cart');
+const cartRoutes    = require('./routes/cart');
+const userRoutes    = require('./routes/user');   // ✅ New user route
+const Cart          = require('./models/Cart');
 
 const app = express();
 
-// ─── Middleware ─────────────────────────────
+// ─── Middleware ──────────────────────────────────────────
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
+  origin: 'http://localhost:5173', // your frontend port
+  credentials: true               // allow cookies from frontend
 }));
 app.use(cookieParser());
 app.use(express.json());
 
-// ─── Guest Cart Middleware ──────────────────
+// ─── Guest Cart Middleware ───────────────────────────────
 app.use(async (req, res, next) => {
   try {
     let cartId = req.cookies.cartId;
@@ -46,18 +47,18 @@ app.use(async (req, res, next) => {
   }
 });
 
-// ─── Routes ─────────────────────────────
+// ─── Routes ───────────────────────────────────────────────
 app.use('/api/products', productsRoute);
-app.use('/api/cart', cartRoutes);
-app.use('/api/orders', ordersRoute);
+app.use('/api/cart',     cartRoutes);
+app.use('/api/user',     userRoutes); // ✅ User login/register routes
 
-// ─── Error Handler ──────────────────────
+// ─── Error Handler ────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ error: err.message });
+  res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
-// ─── Start Server ───────────────────────
+// ─── Start Server ─────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
