@@ -9,28 +9,28 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const res = await fetch('http://localhost:5001/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // 🧠 VERY important for cookie to be sent
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await res.json();
-
-      if (data.success) {
-        localStorage.setItem('userFirstName', data.user.firstName); // optional for UI
-        // You can also store user ID or token if needed
-        window.location.href = '/'; // reload to re-render header etc.
+  
+      if (res.ok && data.success) {
+        window.location.href = '/';
       } else {
-        alert(data.message || 'Login failed. Please try again.');
+        alert(data.message || 'Login failed. Please check your credentials.');
       }
-    } catch (error) {
+  
+    } catch (err) {
+      console.error('Login error:', err);
       alert('Something went wrong. Please try again.');
-      console.error('Login error:', error);
     }
-  };
+  };  
 
   return (
     <div className="login-page-wrapper">

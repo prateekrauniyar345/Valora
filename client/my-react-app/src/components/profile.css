@@ -1,0 +1,13 @@
+.profile-img-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
