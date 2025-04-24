@@ -1,0 +1,42 @@
+/* src/pages/infoPages.css */
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4rem 2rem;
+    background-color: white;
+    min-height: 80vh;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    /* border: 2px solid black; */
+  }
+  
+  .info-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .info-content h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  
+  .info-content p {
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  
+  .info-content a {
+    color: #6c63ff;
+    text-decoration: none;
+  }
+  
+  .info-content a:hover {
+    text-decoration: underline;
+  }
+  

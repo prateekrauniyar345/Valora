@@ -25,7 +25,7 @@ const Footer = () => {
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/privacy-policy">Privacy Policy</a></li>
-            <li><a href="/terms">Terms & Conditions</a></li>
+            <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
           </ul>
         </div>
 
@@ -35,7 +35,7 @@ const Footer = () => {
           <ul>
             <li><a href="/shipping">Shipping</a></li>
             <li><a href="/returns">Returns</a></li>
-            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/faqs">FAQs</a></li>
             <li><a href="/size-guide">Size Guide</a></li>
           </ul>
         </div>

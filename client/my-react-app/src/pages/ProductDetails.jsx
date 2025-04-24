@@ -15,6 +15,8 @@ export default function ProductDetails() {
   const [error, setError]       = useState(null);
   const [selSize, setSelSize]   = useState('');
   const [selColor, setSelColor] = useState('');
+  const [quantity, setQuantity] = useState(1);
+
 
   const { refreshCart } = useCart();
 
@@ -52,7 +54,8 @@ export default function ProductDetails() {
           productId: product._id,
           size: selSize,
           color: selColor,
-          qty: 1
+          qty: quantity
+
         })
       });
   
@@ -170,6 +173,33 @@ export default function ProductDetails() {
               })}
             </div>
           </div>
+
+          {/* Quantity */}
+          <div className="pd-section">
+            <h4>Quantity:</h4>
+            <div className="pd-quantity">
+              <button
+                className="qty-btn"
+                onClick={() => setQuantity(qty => Math.max(1, qty - 1))}
+              >
+                −
+              </button>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={e => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                className="qty-input"
+              />
+              <button
+                className="qty-btn"
+                onClick={() => setQuantity(qty => qty + 1)}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
 
           {/* ─── Rating ───────────────────────────── */}
           <div className="pd-rating">

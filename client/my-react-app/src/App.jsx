@@ -19,6 +19,16 @@ import ProductListing from './pages/ProductListing';
 import ProductDetails  from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import Collections from './pages/Collections';
+import Shop from './pages/Shop';
+import Sale from './pages/Sale';
+import Shipping from './pages/Shipping';
+import Returns from './pages/Return';
+import FAQs from './pages/FAQs';
+import SizeGuide from './pages/SizeGuide';
+
 
 
 import './App.css';
@@ -66,6 +76,18 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/sale" element={<Sale />} />
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/returns" element={<Returns />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/size-guide" element={<SizeGuide />} />
+
+
 
       </Routes>
     

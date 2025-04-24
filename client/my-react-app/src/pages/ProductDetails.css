@@ -156,3 +156,27 @@
     font-weight: 500;
   }
   
+  .pd-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .qty-btn {
+    background-color: #eee;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .qty-input {
+    width: 60px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.3rem;
+    background-color: white;
+    border: 1px solid black;
+  }
+  
