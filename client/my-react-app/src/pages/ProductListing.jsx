@@ -25,11 +25,13 @@ const ProductListing = () => {
   // ─── SEARCH QUERY ──────────────────────────────
   const [searchParams]           = useSearchParams();   
   const query                    = searchParams.get('query') || '';
-  // const genderParam    = searchParams.get('gender') || routeGender || 'all'; // override or fallback
+  
+
+  const discountCode = searchParams.get('discount');
+
 
   const raw = searchParams.get('query') || '';
   console.log('raw', raw);
-  // 2) parse out “for <gender>”
   const m = raw.match(/(.+)\s+for\s+(man|men|woman|women|boy|boys|girl|girls)$/i);
   console.log('m', m);
   const term = pluralize.singular(m ? m[1].trim() : raw);
@@ -38,8 +40,7 @@ const ProductListing = () => {
     ? pluralize.plural(m[2].toLowerCase())
     : routeGender || ALL;
   console.log('genderParam', genderParam);
-  // const term = pluralize.singular(searchParams.get('query') || '');
-  // const genderParam = searchParams.get('gender') || routeGender || ALL;
+
 
 
   
@@ -48,7 +49,9 @@ const ProductListing = () => {
     
       // build params once
       const params = new URLSearchParams();
-      if (term) {
+      if (discountCode) {
+        params.set('discount', discountCode);
+      } else if (term) {
         params.set('search', term);
       } else {
         params.set('category', category || 'all');
@@ -63,20 +66,16 @@ const ProductListing = () => {
         })
         .then(data => {
           setItems(data);
-          // derive your colors, priceRange, etc…
           // derive available colors from what the API returned
           const colors = Array.from(
             new Set(data.map(product => product.baseColour))
           );
           setAvailableColors(colors);
 
-          // …and you could also derive your min/max price here if you want:
-          // const prices = data.map(p => p.price);
-          // setPriceRange([Math.min(...prices), Math.max(...prices)]);
         })
         .catch(err => setError(err.message))
         .finally(() => setLoading(false));
-    }, [category, term, genderParam]);
+    }, [category, term, genderParam, discountCode]);
   
   // ─── APPLY CLIENT‑SIDE FILTERS ─────────────────────────
   const filtered = useMemo(() => {

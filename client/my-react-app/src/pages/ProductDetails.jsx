@@ -66,6 +66,26 @@ export default function ProductDetails() {
       alert('Error adding to cart');
     }
   };
+
+
+  // discount code logic
+  const getDiscountPercent = (code) => {
+    const match = /^(\d+)%\-off$/.exec(code);
+    return match ? parseInt(match[1]) : 20; // default to 20% off
+  };
+  
+  const getDiscountLabel = (code) => {
+    const map = {
+      '30%-off': '30% OFF',
+      '50%-off': '50% OFF',
+      '70%-off': '70% OFF',
+      'cybermonday': 'Cyber Monday – 20% OFF',
+      'springsale': 'Spring Sale – 20% OFF',
+      'flash-friday': 'Flash Friday – 20% OFF',
+    };
+    return map[code] || 'Limited Time Offer – 20% OFF';
+  };
+  
   
 
   // size availability: p[`size_S`]… etc
@@ -92,7 +112,27 @@ export default function ProductDetails() {
         {/* info */}
         <div className="pd-info">
           <h1 className="pd-title">{product.productDisplayName}</h1>
-          <p className="pd-price">${product.price.toFixed(2)}</p>
+          {/* <p className="pd-price">${product.price.toFixed(2)}</p> */}
+          {/* ─── Price ───────────────────────────── */}
+          <div className="pd-section">
+            <h4>Price:</h4>
+            <div className="pd-price">
+              {product.discountCode ? (
+                <>
+                  <span className="pd-old-price">${product.price.toFixed(2)}</span>
+                  <span className="pd-new-price">
+                    ${ (product.price * (1 - getDiscountPercent(product.discountCode) / 100)).toFixed(2) }
+                  </span>
+                  <div className="pd-discount-label">
+                    🎉 {getDiscountLabel(product.discountCode)}
+                  </div>
+                </>
+              ) : (
+                <span className="pd-new-price">${product.price.toFixed(2)}</span>
+              )}
+            </div>
+          </div>
+
 
           {/* Colour */}
           <div className="pd-section">

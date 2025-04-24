@@ -136,4 +136,23 @@
     color: #333;
     margin-bottom: 1rem;
   }
+  .pd-old-price {
+    text-decoration: line-through;
+    color: red;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+  
+  .pd-new-price {
+    color: #111;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+  
+  .pd-discount-label {
+    margin-top: 4px;
+    font-size: 0.95em;
+    color: #007b00;
+    font-weight: 500;
+  }
   
