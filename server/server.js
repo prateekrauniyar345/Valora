@@ -1,64 +1,34 @@
-// // server/server.js
-// require('dotenv').config();
-// require('./db/main');                   // initialize mongoose connection
-
-// const express        = require('express');
-// const cors           = require('cors');
-// const productsRoute  = require('./routes/products');
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-
-// app.use('/api/products', productsRoute);
-
-// const PORT = process.env.PORT || 5001;
-// app.listen(PORT, () =>
-//   console.log(`🚀 Server running on http://localhost:${PORT}`)
-// );
-
-// above code was working old code
-
-
-
-
-// server/server.js
 require('dotenv').config();
-require('./db/main');                   // initialize mongoose connection
+require('./db/main'); // Connect to MongoDB
 
-const express      = require('express');
-const cors         = require('cors');
+const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const productsRoute = require('./routes/products');
 const cartRoutes    = require('./routes/cart');
-const Cart          = require('./models/Cart');   // ensure Cart model is registered
+const userRoutes    = require('./routes/user');   // ✅ New user route
+const Cart          = require('./models/Cart');
 
 const app = express();
 
-// ─── CORS & Parsing ────────────────────────────────────
-// allow your frontend origin to send credentials (cookies)
-// app.use(cors());
-// CORS setup
+// ─── Middleware ──────────────────────────────────────────
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
+  origin: 'http://localhost:5173', // your frontend port
+  credentials: true               // allow cookies from frontend
 }));
 app.use(cookieParser());
 app.use(express.json());
 
-// ─── Guest-Cart Middleware ─────────────────────────────
-// Ensures every client has a Cart in Mongo, even before login
+// ─── Guest Cart Middleware ───────────────────────────────
 app.use(async (req, res, next) => {
   try {
     let cartId = req.cookies.cartId;
 
     if (!cartId) {
-      // create a new empty Cart document
       const cart = await Cart.create({});
       cartId = cart._id.toString();
 
-      // set HTTP-only cookie so browser sends it on every request
       res.cookie('cartId', cartId, {
         httpOnly: true,
         sameSite: 'lax',
@@ -67,26 +37,25 @@ app.use(async (req, res, next) => {
       });
     }
 
-    // expose cartId on req for your routes
     req.cartId = cartId;
     next();
-
   } catch (err) {
     next(err);
   }
 });
 
-// ─── Routes ─────────────────────────────────────────────
+// ─── Routes ───────────────────────────────────────────────
 app.use('/api/products', productsRoute);
 app.use('/api/cart',     cartRoutes);
+app.use('/api/user',     userRoutes); // ✅ User login/register routes
 
-// ─── Error Handler ──────────────────────────────────────
+// ─── Error Handler ────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ error: err.message });
+  res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
-// ─── Start Server ───────────────────────────────────────
+// ─── Start Server ─────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () =>
   console.log(`🚀 Server running on http://localhost:${PORT}`)
