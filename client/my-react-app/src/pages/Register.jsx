@@ -102,7 +102,7 @@ export default function Register() {
     localStorage.setItem('userFirstName', firstName);
     localStorage.setItem('userName', userName);
 
-    navigate('/home');
+    navigate('/login');
   };
 
   return (
