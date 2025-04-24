@@ -1,93 +1,89 @@
-// 📁 src/pages/Register.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './Register.css';
+import './Login.css';
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    password: ''
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName]   = useState('');
+  const [userName, setUserName]   = useState('');
+  const [email, setEmail]         = useState('');
+  const [password, setPassword]   = useState('');
+  const navigate                  = useNavigate();
 
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
     const res = await fetch('http://localhost:5001/api/user/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(formData)
+      body: JSON.stringify({ firstName, lastName, userName, email, password })
     });
 
     const data = await res.json();
+
     if (data.success) {
-      alert('Registration successful!');
+      alert('Registration successful! Please log in.');
       navigate('/login');
     } else {
-      alert(data.message || 'Something went wrong!');
+      alert(data.message || 'Registration failed. Please try again.');
     }
   };
 
   return (
     <div className="login-page-wrapper">
       <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleRegister}>
           <h2 className="login-title">REGISTER</h2>
-
-          <div className="name-row">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="FIRST NAME"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="LAST NAME"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
           <input
             type="text"
-            name="userName"
-            placeholder="USERNAME"
-            value={formData.userName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="EMAIL"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="PASSWORD"
-            value={formData.password}
-            onChange={handleChange}
+            className="login-input"
+            placeholder="FIRST NAME"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
             required
           />
 
-          <button type="submit" className="login-button">REGISTER</button>
+          <input
+            type="text"
+            className="login-input"
+            placeholder="LAST NAME"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            className="login-input"
+            placeholder="USERNAME"
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+            required
+          />
+
+          <input
+            type="email"
+            className="login-input"
+            placeholder="EMAIL"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            className="login-input"
+            placeholder="PASSWORD"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="login-button">
+            REGISTER
+          </button>
+
           <p className="login-footer">
             Already have an account? <Link to="/login">Login</Link>
           </p>

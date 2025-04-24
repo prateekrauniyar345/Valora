@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './header.css';
 import logo from '../assets/logo/logo.png';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import slugify from 'slugify';
 import pluralize from 'pluralize';
-<<<<<<< Updated upstream
-=======
-import { useCart } from './CartContext';
-import { FaUser } from 'react-icons/fa';
->>>>>>> Stashed changes
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
@@ -33,51 +28,6 @@ const Header = () => {
     setSearchTerm(searchParams.get('query') || '');
   }, [searchParams]);
 
-<<<<<<< Updated upstream
-=======
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch('http://localhost:5001/api/user/me', {
-          credentials: 'include'
-        });
-        const data = await res.json();
-        if (data && data.firstName) {
-          setUsername(data.firstName);
-        } else {
-          setUsername(null);
-        }
-      } catch (err) {
-        console.error("Failed to fetch user", err);
-      }
-    };
-  
-    fetchUser();
-  
-    // Re-fetch on visibility change (like after login redirect)
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        fetchUser();
-      }
-    };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-  
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, []);
-  
-
-  const handleLogout = async () => {
-    await fetch('http://localhost:5001/api/user/logout', {
-      method: 'POST',
-      credentials: 'include'
-    });
-    setUsername(null);
-    window.location.href = '/login';
-  };
-
->>>>>>> Stashed changes
   const toggleDropdown = (category) => {
     setDropdown(dropdown === category ? null : category);
   };
@@ -116,10 +66,6 @@ const Header = () => {
     navigate(`/search?${params.toString()}`);
   };
 
-<<<<<<< Updated upstream
-=======
-  // ✅ VALID return block inside the function body
->>>>>>> Stashed changes
   return (
     <header className="header">
       <div className="header__logo">
@@ -129,15 +75,7 @@ const Header = () => {
       <nav className="header__nav">
         <ul>
           <li><Link to="/">Home</Link></li>
-<<<<<<< Updated upstream
           {/* Add Men/Women/Boys/Girls dropdowns here (omitted for brevity) */}
-=======
-          <li className="dropdown-trigger" onMouseEnter={() => toggleDropdown("men")} onMouseLeave={() => setDropdown(null)}>
-            MEN
-            {dropdown === "men" && renderDropdown("men", ["Topwear", "Bottomwear", "Socks", "Watches", "Shoes", "Flip Flops", "Sandal", "Fragrance", "Belts", "Innerwear", "Eyewear", "Wallets", "Jewellery", "Headwear", "Free Gifts", "Ties", "Mufflers", "Loungewear and Nightwear", "Accessories", "Scarves", "Bags", "Gloves", "Cufflinks", "Skin Care", "Perfumes", "Water Bottle", "Shoe Accessories", "Bath and Body", "Stoles"])}
-          </li>
-          {/* Add other dropdowns similarly */}
->>>>>>> Stashed changes
           <li><Link to="/about">About Us</Link></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
@@ -154,7 +92,6 @@ const Header = () => {
         <button type="submit" className="search-btn">Search</button>
       </form>
 
-<<<<<<< Updated upstream
       {user ? (
         <div className="header__user">
           <span>Hi, {user.firstName}</span>
@@ -180,30 +117,6 @@ const Header = () => {
           </Link>
         </div>
       )}
-=======
-      <div className="login-register">
-        {username ? (
-          <>
-            <span>Hi, {username}</span>
-            <button onClick={handleLogout} className="login-btn">Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login"><button className="login-btn">Login</button></Link>
-            <Link to="/register"><button className="register-btn">Register</button></Link>
-          </>
-        )}
-      </div>
-
-      <Link to="/cart" className="cart-btn">
-        <span className="cart-icon">🛒</span>
-        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-      </Link>
-
-      <Link to="/profile" className="profile-icon">
-        <FaUser size={22} />
-      </Link>
->>>>>>> Stashed changes
     </header>
   );
 };

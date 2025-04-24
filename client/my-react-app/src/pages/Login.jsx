@@ -7,7 +7,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-<<<<<<< Updated upstream
   const handleLogin = async (e) => {
     e.preventDefault();
   
@@ -32,33 +31,6 @@ export default function Login() {
       alert('Something went wrong. Please try again.');
     }
   };  
-=======
- // Login.jsx
- const handleLogin = async (e) => {
-  e.preventDefault();
-
-  try {
-    const res = await fetch('http://localhost:5001/api/user/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include', // important to send cookies
-      body: JSON.stringify({ email, password })
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      navigate('/'); // or navigate('/profile') if that’s your landing page
-    } else {
-      alert(data.message || 'Login failed');
-    }
-  } catch (err) {
-    alert('Server error. Please try again later.');
-    console.error(err);
-  }
-};
-
->>>>>>> Stashed changes
 
   return (
     <div className="login-page-wrapper">
