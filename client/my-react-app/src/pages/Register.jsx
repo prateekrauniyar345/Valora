@@ -1,31 +1,33 @@
-// src/Components/Register.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 export default function Register() {
   const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [lastName, setLastName]   = useState('');
+  const [userName, setUserName]   = useState('');
+  const [email, setEmail]         = useState('');
+  const [password, setPassword]   = useState('');
+  const navigate                  = useNavigate();
 
-// Register.jsx
-const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const accounts = JSON.parse(localStorage.getItem('accounts') || '[]');
-  
-    if (accounts.some(acc => acc.email === email)) {
-      alert('Account already exists.');
-      return;
+
+    const res = await fetch('http://localhost:5001/api/user/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, userName, email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert('Registration successful! Please log in.');
+      navigate('/login');
+    } else {
+      alert(data.message || 'Registration failed. Please try again.');
     }
-  
-    accounts.push({ firstName, email, password });
-    localStorage.setItem('accounts', JSON.stringify(accounts));
-  
-    localStorage.setItem('userFirstName', firstName);
-    navigate('/home');
   };
-  
 
   return (
     <div className="login-page-wrapper">
@@ -38,7 +40,25 @@ const handleRegister = (e) => {
             className="login-input"
             placeholder="FIRST NAME"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={e => setFirstName(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            className="login-input"
+            placeholder="LAST NAME"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            className="login-input"
+            placeholder="USERNAME"
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
             required
           />
 
@@ -47,7 +67,7 @@ const handleRegister = (e) => {
             className="login-input"
             placeholder="EMAIL"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
 
@@ -56,11 +76,14 @@ const handleRegister = (e) => {
             className="login-input"
             placeholder="PASSWORD"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
 
-          <button type="submit" className="login-button">REGISTER</button>
+          <button type="submit" className="login-button">
+            REGISTER
+          </button>
+
           <p className="login-footer">
             Already have an account? <Link to="/login">Login</Link>
           </p>
