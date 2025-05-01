@@ -70,13 +70,21 @@ const Header = () => {
     navigate(`/search?${params.toString()}`);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('userFirstName');
-    setUsername(null);
+
+   const handleLogout = async () => {
+     // 1) tell the server to destroy the session
+     await fetch('http://localhost:5001/api/user/logout', {
+       method: 'POST',
+       credentials: 'include'
+     });
   
-    // 👉 Reload the page so Header re-evaluates localStorage
-    window.location.href = '/login';
-  };
+     // 2) clear any client-side state
+     localStorage.clear();
+     setUsername(null);
+  
+     // 3) send the user to login
+     navigate('/login', { replace: true });
+   };
   
 
   return (
@@ -125,23 +133,37 @@ const Header = () => {
         <button type="submit" className="search-btn">Search</button>
       </form>
 
-      <div className='login-register'>
-        {username ? (
-          <>
-            <span style={{ fontWeight: '500', fontSize: '16px' }}>Hi, {username}</span>
-            <button onClick={handleLogout} className="login-btn">Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <button className="login-btn">Login</button>
-            </Link>
-            <Link to="/register">
-              <button className="register-btn">Register</button>
-            </Link>
-          </>
-        )}
-      </div>
+      <div className="login-register">
+          {username ? (
+            <>
+              <Link
+                to="/profile"
+                className="profile-link"
+                style={{
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  textDecoration: 'none',
+                  color: 'inherit'
+                }}
+              >
+                Hi, {username}
+              </Link>
+              <button onClick={handleLogout} className="login-btn">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="login-btn">Login</button>
+              </Link>
+              <Link to="/register">
+                <button className="register-btn">Register</button>
+              </Link>
+            </>
+          )}
+    </div>
+
 
       <Link to="/cart" className="cart-btn">
         <span className="cart-icon">🛒</span>

@@ -49,7 +49,7 @@ export default function ProductDetails() {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include', // ⬅️ so cartId cookie is sent
+        credentials: 'include', 
         body: JSON.stringify({
           productId: product._id,
           size: selSize,
