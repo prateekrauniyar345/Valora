@@ -1,76 +1,105 @@
-const express = require('express');
-const router = express.Router();
-const Cart = require('../models/Cart');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// routes/cart.js
+// import express from 'express';
+// import mongoose from 'mongoose';
 
-// GET current cart
+// server/routes/cart.js
+const express = require('express');
+const Cart = require('../models/Cart');
+const Product = require('../models/Product');
+const Discount = require('../models/Discount');
+
+const router = express.Router();
+
+// ✅ GET current cart with fallback to Discount collection
 router.get('/', async (req, res) => {
   try {
-    const cart = await Cart.findById(req.cartId).populate('items.productId');
-    if (!cart) return res.status(404).json({ error: 'Cart not found' });
-    res.json(cart);
+    const cart = await Cart.findById(req.cartId).lean();
+
+    if (!cart) return res.status(404).send({ error: 'Cart not found' });
+
+    // Enrich each item with product details from either collection
+    const enrichedItems = await Promise.all(
+      cart.items.map(async item => {
+        let product = await Product.findById(item.productId).lean();
+        if (!product) {
+          product = await Discount.findById(item.productId).lean();
+        }
+
+        return {
+          ...item,
+          productId: product || null  // null if not found anywhere
+        };
+      })
+    );
+
+    res.send({
+      ...cart,
+      items: enrichedItems
+    });
   } catch (err) {
-    console.error('❌ Failed to fetch cart:', err);
-    res.status(500).json({ error: 'Failed to fetch cart' });
+    console.error('Error loading cart:', err);
+    res.status(500).send({ error: 'Failed to load cart' });
   }
 });
 
-// Add item to cart
+
+// POST add/update an item
 router.post('/items', async (req, res) => {
   const { productId, qty = 1, size, color } = req.body;
   const cart = await Cart.findById(req.cartId);
-  if (!cart) return res.status(404).json({ error: 'Cart not found' });
+  if (!cart) return res.status(404).send({ error: 'Cart not found' });
 
-  const index = cart.items.findIndex(i =>
-    i.productId.equals(productId) && i.size === size && i.color === color
+  // see if that variant already exists
+  const idx = cart.items.findIndex(i =>
+    i.productId.equals(productId) &&
+    i.size === size &&
+    i.color === color
   );
 
-  if (index >= 0) {
-    cart.items[index].qty += qty;
+  if (idx >= 0) {
+    cart.items[idx].qty += qty;
   } else {
     cart.items.push({ productId, qty, size, color });
   }
 
   cart.updatedAt = Date.now();
   await cart.save();
-  res.json(cart);
+  res.send(cart);
 });
 
-// Stripe checkout
-router.post('/checkout', async (req, res) => {
-  const { items } = req.body;
-  console.log("🛒 Checkout Items:", items);
+// DELETE remove an item
+router.delete('/items', async (req, res) => {
+  const { productId, size, color } = req.body;
+  const cart = await Cart.findById(req.cartId);
+  if (!cart) return res.status(404).send({ error: 'Cart not found' });
 
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ error: 'Invalid or empty items array' });
-  }
+  cart.items = cart.items.filter(i =>
+    !(
+      i.productId.equals(productId) &&
+      i.size === size &&
+      i.color === color
+    )
+  );
+  cart.updatedAt = Date.now();
+  await cart.save();
+  res.send(cart);
+});
 
-  const lineItems = items.map(item => ({
-    price_data: {
-      currency: 'usd',
-      product_data: {
-        name: item.productId?.productDisplayName || item.productId?.name || item.name || 'Unnamed Product',
+// PUT replace qty of an item
+router.put('/items', async (req, res) => {
+  const { productId, size, color, qty } = req.body;
+  const cart = await Cart.findById(req.cartId);
+  if (!cart) return res.status(404).send({ error: 'Cart not found' });
 
-      },
-      unit_amount: Math.round((item.productId?.price || item.price) * 100),
-    },
-    quantity: item.qty || item.quantity || 1,
-  }));
-
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${process.env.CLIENT_URL}/checkout-success`,
-      cancel_url: `${process.env.CLIENT_URL}/cart`,
-    });
-
-    res.json({ url: session.url });
-  } catch (err) {
-    console.error('❌ Stripe session creation error:', err.message);
-    res.status(500).json({ error: err.message });
-  }
+  const item = cart.items.find(i =>
+    i.productId.equals(productId) &&
+    i.size === size &&
+    i.color === color
+  );
+  if (item) item.qty = qty;
+  cart.updatedAt = Date.now();
+  await cart.save();
+  res.send(cart);
 });
 
 module.exports = router;

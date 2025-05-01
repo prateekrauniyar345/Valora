@@ -28,6 +28,7 @@ import Shipping from './pages/Shipping';
 import Returns from './pages/Return';
 import FAQs from './pages/FAQs';
 import SizeGuide from './pages/SizeGuide';
+import Profile from './pages/Profile';
 
 
 
@@ -86,6 +87,7 @@ function App() {
         <Route path="/returns" element={<Returns />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/size-guide" element={<SizeGuide />} />
+        <Route path="/profile" element={<Profile />} />
 
 
 
