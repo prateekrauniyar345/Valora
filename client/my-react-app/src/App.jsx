@@ -29,6 +29,7 @@ import Returns from './pages/Return';
 import FAQs from './pages/FAQs';
 import SizeGuide from './pages/SizeGuide';
 import Profile from './pages/Profile';
+import AdminProducts from './pages/AdminProducts';
 
 
 
@@ -88,6 +89,7 @@ function App() {
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/size-guide" element={<SizeGuide />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin/products" element={<AdminProducts />} />
 
 
 

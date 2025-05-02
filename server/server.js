@@ -14,6 +14,8 @@ const profileRoutes = require('./routes/profile');   // profile GET/PUT
 const checkoutRoute = require('./routes/checkout');
 
 const Cart          = require('./models/Cart');
+const adminProductsRoute = require('./routes/adminProducts');
+
 
 const app = express();
 
@@ -71,6 +73,7 @@ app.use('/api/cart',          cartRoutes);
 app.use('/api/user',          userRoutes);      // login & register
 app.use('/api/user/profile',  profileRoutes);   // get/update profile
 app.use('/api/checkout',      checkoutRoute);   // protected checkout
+app.use('/api/admin/products', adminProductsRoute); // admin products
 
 // ─── ERROR HANDLER ───────────────────────────────────────
 app.use((err, req, res, next) => {
