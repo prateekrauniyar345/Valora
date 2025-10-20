@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate }   from 'react-router-dom';
 import './Checkout.css';
+import API_BASE_URL from '../config/api';
 
 export default function Checkout() {
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ export default function Checkout() {
 
     try {
       const res = await fetch(
-        'http://localhost:5001/api/checkout/create-checkout-session',
+        `${API_BASE_URL}/api/checkout/create-checkout-session`,
         {
           method:      'POST',
           headers:     { 'Content-Type': 'application/json' },

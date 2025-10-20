@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+import API_BASE_URL from '../config/api';
 
 export default function Profile() {
   const [billingSameAsShipping, setBillingSame] = useState(false);
@@ -11,7 +12,7 @@ export default function Profile() {
 
   // Fetch once on mount
   useEffect(() => {
-    fetch('http://localhost:5001/api/user/profile', { credentials: 'include' })
+    fetch(`${API_BASE_URL}/api/user/profile`, { credentials: 'include' })
       .then(res => {
         if (res.status === 401) { navigate('/login', { replace: true }); throw new Error(); }
         if (!res.ok) throw new Error('Failed to load');
@@ -50,7 +51,7 @@ export default function Profile() {
   };
 
   const handleSave = () => {
-    fetch('http://localhost:5001/api/user/profile', {
+    fetch(`${API_BASE_URL}/api/user/profile`, {
       method: 'PUT',
       credentials: 'include',
       headers: {'Content-Type':'application/json'},

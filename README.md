@@ -229,14 +229,65 @@ This application uses **Stripe** for secure payment processing:
 
 ## 🚀 Deployment
 
-### Development
-- Frontend: `npm run dev` (Vite dev server)
-- Backend: `npm start` (Node.js server)
+This project is configured for easy deployment using a monorepo approach. Both frontend and backend can be deployed from a single repository.
 
-### Production Build
-- Frontend: `npm run build` (Creates optimized build)
-- Backend: Configure environment variables for production
-- Database: Use MongoDB Atlas for cloud hosting
+### Quick Deploy
+
+**Recommended Stack:**
+- **Frontend**: Vercel (Free tier)
+- **Backend**: Render (Free tier)
+- **Database**: MongoDB Atlas (Free tier)
+
+### Deployment Files Included
+
+- `vercel.json` - Vercel configuration for frontend
+- `render.yaml` - Render configuration for backend
+- `.env.example` - Template for environment variables
+- `DEPLOYMENT.md` - Complete step-by-step deployment guide
+
+### Environment Configuration
+
+The project uses centralized API configuration that automatically switches between development and production:
+
+**Development:**
+```bash
+# Frontend connects to local backend
+VITE_API_URL=http://localhost:5001
+```
+
+**Production:**
+```bash
+# Frontend connects to deployed backend
+VITE_API_URL=https://your-backend-url.onrender.com
+```
+
+### Deployment Steps
+
+1. **Deploy Backend to Render**
+   - Root directory: `server`
+   - Environment: Node
+   - Add environment variables from `.env.example`
+
+2. **Deploy Frontend to Vercel**
+   - Root directory: `client/my-react-app`
+   - Framework: Vite
+   - Add `VITE_API_URL` with your backend URL
+
+3. **Update CORS**
+   - Add your Vercel URL to `CLIENT_URL` in Render
+
+For detailed instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### Health Check
+
+After deployment, verify backend health:
+```
+GET https://your-backend-url.onrender.com/health
+```
+
+### Development
+- Frontend: `npm run dev` (Vite dev server on port 5173)
+- Backend: `npm start` (Node.js server on port 5001)
 
 ## 🤝 Contributing
 

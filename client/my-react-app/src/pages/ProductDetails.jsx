@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link }              from 'react-router-dom';
 import './ProductDetails.css';
 import { useCart } from '../components/CartContext';
+import API_BASE_URL from '../config/api';
 
 
 
@@ -21,7 +22,7 @@ export default function ProductDetails() {
   const { refreshCart } = useCart();
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/products/${id}`)
+    fetch(`${API_BASE_URL}/api/products/${id}`)
       .then(r => r.json())
       .then(data => {
         setProduct(data);
@@ -44,7 +45,7 @@ export default function ProductDetails() {
   // add to cart logic
   const handleAddToCart = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/cart/items', {
+      const res = await fetch(`${API_BASE_URL}/api/cart/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

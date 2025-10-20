@@ -3,6 +3,7 @@ import { useParams, useSearchParams  } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import './ProductListing.css'; // updated filename
 import pluralize from 'pluralize';
+import API_BASE_URL from '../config/api';
 
 const ALL = 'all';
 
@@ -59,7 +60,7 @@ const ProductListing = () => {
       // always include the genderParam
       params.set('gender', genderParam);
     
-      fetch(`http://localhost:5001/api/products?${params.toString()}`)
+      fetch(`${API_BASE_URL}/api/products?${params.toString()}`)
         .then(res => {
           if (!res.ok) throw new Error('Network response was not ok');
           return res.json();

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminProducts.css';
+import API_BASE_URL from '../config/api';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ export default function AdminProducts() {
 
   // fetch existing products
   useEffect(() => {
-    fetch('http://localhost:5001/api/admin/products')
+    fetch(`${API_BASE_URL}/api/admin/products`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to load');
         return res.json();
@@ -34,7 +35,7 @@ export default function AdminProducts() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5001/api/admin/products', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/products`, {
         method:  'POST',
         headers: {'Content-Type':'application/json'},
         body:    JSON.stringify({

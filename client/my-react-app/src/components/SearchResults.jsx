@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './SearchResults.css';
+import API_BASE_URL from '../config/api';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -10,7 +11,7 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`http://localhost:5001/api/products?search=${query}`);
+        const res = await fetch(`${API_BASE_URL}/api/products?search=${query}`);
         const data = await res.json();
         setProducts(data);
       } catch (err) {

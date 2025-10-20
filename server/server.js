@@ -20,9 +20,24 @@ const adminProductsRoute = require('./routes/adminProducts');
 const app = express();
 
 // ─── CORS & PARSING ─────────────────────────────────────
+// Support both development and production origins
+const allowedOrigins = [
+  'http://localhost:5173',                    // Development
+  process.env.CLIENT_URL,                     // Production (from .env)
+].filter(Boolean);
+
 app.use(cors({
-  origin: 'http://localhost:5173', // your React/Vite dev server
-  credentials: true                // allow cookies to be sent
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true                           // Allow cookies to be sent
 }));
 app.use(cookieParser());
 app.use(express.json());
@@ -65,6 +80,17 @@ app.use(async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+// ─── HEALTH CHECK ────────────────────────────────────────
+// Useful for monitoring and deployment health checks
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    uptime: process.uptime()
+  });
 });
 
 // ─── ROUTES ───────────────────────────────────────────────

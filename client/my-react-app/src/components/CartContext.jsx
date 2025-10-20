@@ -1,5 +1,6 @@
 // src/components/CartContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api';
 
 const CartContext = createContext();
 
@@ -9,7 +10,7 @@ export const CartProvider = ({ children }) => {
   // fetch full cart and update count
   const refreshCart = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/cart', {
+      const res = await fetch(`${API_BASE_URL}/api/cart`, {
         credentials: 'include'
       });
       if (!res.ok) throw new Error('Cart fetch failed');
@@ -25,7 +26,7 @@ export const CartProvider = ({ children }) => {
   // add or update one item then refresh
   const addToCart = async ({ productId, qty = 1, size, color }) => {
     try {
-      const res = await fetch('http://localhost:5001/api/cart/items', {
+      const res = await fetch(`${API_BASE_URL}/api/cart/items`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

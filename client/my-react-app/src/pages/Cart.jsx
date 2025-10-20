@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Cart.css';
 import { useCart } from '../components/CartContext';
+import API_BASE_URL from '../config/api';
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -15,7 +16,7 @@ export default function Cart() {
   const loadCart = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5001/api/cart', {
+      const res = await fetch(`${API_BASE_URL}/api/cart`, {
         credentials: 'include'
       });
       if (!res.ok) throw new Error('Failed to load cart');
@@ -37,7 +38,7 @@ export default function Cart() {
   // remove one item then reload both items & count
   const handleRemove = async (productId, size, color) => {
     try {
-      const res = await fetch('http://localhost:5001/api/cart/items', {
+      const res = await fetch(`${API_BASE_URL}/api/cart/items`, {
         method: 'DELETE',
         headers: { 'Content-Type':'application/json' },
         credentials: 'include',

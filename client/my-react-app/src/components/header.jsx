@@ -5,6 +5,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import slugify from 'slugify';
 import pluralize from 'pluralize';
 import { useCart } from './CartContext';
+import API_BASE_URL from '../config/api';
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
@@ -73,7 +74,7 @@ const Header = () => {
 
    const handleLogout = async () => {
      // 1) tell the server to destroy the session
-     await fetch('http://localhost:5001/api/user/logout', {
+     await fetch(`${API_BASE_URL}/api/user/logout`, {
        method: 'POST',
        credentials: 'include'
      });
